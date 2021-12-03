@@ -39,7 +39,7 @@ Look at the PHP-configuration at ```http://127.0.0.1/phpinfo```
 
 There is the possibility to use bash and a few of common used terminal commands for example ```less```, ```vi``` and so on.  
 
-    docker exec -ti dev-dotdeb /bin/bash
+    docker exec -ti dev-www /bin/bash
 
 ## Advanced configuration
 
@@ -71,10 +71,10 @@ A release tag is necessary to publish an image to [ubleipzig/dev-www][4] Release
 
 For example if you would push a new tag named release/7.4-0 following set of new images will be created:
 
-7.4-0 
-7.4 
-7 
-latest
+- 7.4-0
+- 7.4
+- 7
+- latest
 
 
 [1]: https://getcomposer.org/

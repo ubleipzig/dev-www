@@ -49,7 +49,7 @@ dev-www_publish:
       --tag "${major_version}.${minor_version}" \
       --tag "${major_version}"
   dependencies:
-    - dev-dotdeb_build
+    - dev-www_build
   tags:
     - docker
   only:
