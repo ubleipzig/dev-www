@@ -1,0 +1,30 @@
+#!/bin/sh
+
+##############
+#  devtools
+##############
+
+set -ex
+
+echo "Installing composer"
+curl -L https://getcomposer.org/installer > composer-setup.php \
+  && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
+  && php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('/tmp/composer-setup.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1);} echo PHP_EOL;" \
+  && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+  && rm composer-setup.php \
+  && curl https://raw.githubusercontent.com/eficode/wait-for/v2.1.2/wait-for > /usr/local/bin/wait-for \
+  && chmod +x /usr/local/bin/wait-for
+
+echo "Installing phing"
+curl -L http://www.phing.info/get/phing-2.16.3.phar > /usr/local/bin/phing \
+  && php -r "if (hash_file('SHA512', '/usr/local/bin/phing') === '82fc5043b566b4208fa1e51f105c278e46c66ff807a136ad490f4cbd7ffcb9573374b26a7da21d6a500073bca7301bd1703056f5e2eb1c74f54b100970c8fa9a') { echo 'Phing verified'; } else { echo 'Phing corrupt'; unlink('/usr/local/bin/phing'); exit(1);} echo PHP_EOL;" \
+  && chmod a+x /usr/local/bin/phing \
+
+echo "Configuring xdebug"
+cat >/usr/local/etc/php/conf.d/php-ext-xdebug.ini <<EOF
+xdebug.mode = debug
+xdebug.start_with_request = trigger
+xdebug.client_host =
+xdebug.client_port = 9003
+xdebug.max_nesting_level = 400
+EOF

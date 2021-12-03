@@ -1,0 +1,13 @@
+#!/bin/sh
+############
+#  nginx
+############
+
+set -e
+
+# Adjusts nginx.conf parameter
+sed -i "s/user nginx;/user www-data;/g" /etc/nginx/nginx.conf
+sed -i "s/error_log .*/error_log \/dev\/stderr;/g" /etc/nginx/nginx.conf
+
+# Create pid folder
+mkdir -p /run/nginx

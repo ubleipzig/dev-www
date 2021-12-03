@@ -1,0 +1,9 @@
+#!/bin/sh
+############
+# nullmailer
+############
+set -e
+
+curl -LSs https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 -o /usr/local/bin/mhsendmail
+chmod +x /usr/local/bin/mhsendmail
+printf "sendmail_path='/usr/local/bin/mhsendmail --smtp-addr=\"localhost:1025\"'\n" > /usr/local/etc/php/conf.d/docker-php-ext-mhsendmail.ini

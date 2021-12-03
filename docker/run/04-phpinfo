@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -e
+
+mkdir -p /var/www/phpinfo
+
+cat >/var/www/phpinfo/index.php <<EOF
+<?php
+  echo phpinfo();
+EOF
+
+cat >/etc/nginx/default.d/phpinfo.conf <<EOF
+location /phpinfo {
+  alias /var/www/phpinfo;
+  index index.php;
+
+  location ~ \.php$ {
+    include /etc/nginx/fastcgi_params;
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_param SCRIPT_FILENAME \$request_filename;
+  }
+}
+EOF
+

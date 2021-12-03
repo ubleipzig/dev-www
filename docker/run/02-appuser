@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if ! id ${APP_USER} &>/dev/null; then
+
+	# create user
+	addgroup -S ${APP_USER}
+	adduser --disabled-password --gecos "" -h /home/${APP_USER} -s /bin/bash -S ${APP_USER} -G ${APP_USER}
+
+	# create .my.cnf
+	cat >/home/${APP_USER}/.my.cnf <<EOF
+[client]
+user=root
+host=db
+EOF
+
+	# make .ssh folder in app users home directory
+	install -o "${APP_USER}" -d "/home/${APP_USER}/.ssh"
+fi;
+
+# adapt dev uid
+APP_UID=`stat -c %u ${APP_HOME}`
+APP_GID=`stat -c %g ${APP_HOME}`
+APP_USER_HOME=`grep -e '^'${APP_USER} /etc/passwd | awk -F":" '{ print $6; }'`
+
+# we do not allow root to be the app user
+if [ "$APP_UID" == "0" -o "$APP_GID" == "0" ]; then
+	echo "Setting app user to UID:1000 and GID:1000 ..."
+	APP_UID="1000"
+	APP_GID="1000"
+	chown ${APP_UID}:${APP_GID} ${APP_HOME} -R
+fi;
+
+sed -e "s!^\(${APP_USER}:x\):[0-9]\+:[0-9]\+:\(.*\)\$!\1:${APP_UID}:${APP_GID}:\2!" -i /etc/passwd
+sed -e "s!^\(${APP_USER}:x\):[0-9]\+:\(.*\)\$!\1:${APP_GID}:\2!" -i /etc/group
+
+chown ${APP_USER}:${APP_USER} ${APP_USER_HOME} -R
+adduser www-data ${APP_USER}
+

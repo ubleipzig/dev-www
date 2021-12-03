@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#############
+# environment
+#############
+
+set -e
+
+export LANG=de_DE.UTF-8
+export LANGUAGE=de_DE.UTF-8
+export LC_ALL=de_DE.UTF-8
+
+if [ -S "/ssh-agent" ]; then
+	export SSH_AUTH_SOCK=/ssh-agent
+fi
+
+sed -e "s/^\(xdebug\.client_host\).*\$/\1 = ${DOCKERHOST}/" -i /usr/local/etc/php/conf.d/php-ext-xdebug.ini

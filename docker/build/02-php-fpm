@@ -1,0 +1,20 @@
+#!/bin/sh
+############
+#  php-fpm
+############
+
+set -e
+
+cat >/usr/local/etc/php/php.ini <<EOF
+always_populate_raw_post_data = -1
+display_errors = On
+display_startup_errors = On
+error_reporting = E_ALL
+max_execution_time = 240
+memory_limit = 512M
+max_input_vars = 1500
+date.timezone = Europe/Berlin
+upload_max_filesize = 1G
+post_max_size = 1G
+zlib.output_compression = On
+EOF

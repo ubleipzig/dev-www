@@ -1,0 +1,70 @@
+stages:
+  - build
+  - publish
+  - mirror
+
+variables:
+  production_repo: ubleipzig/dev-www
+
+dev-www_build:
+  stage: build
+  image: ubleipzig/deployer:1.5.0
+  services:
+    - docker:18.09-dind
+  script: |
+    deployer build \
+      --build-arg HTTP_PROXY="${HTTP_PROXY}" \
+      --build-arg FTP_PROXY="${FTP_PROXY}" \
+      --build-arg HTTPS_PROXY="${HTTPS_PROXY}" \
+      --build-arg NO_PROXY="${NO_PROXY}" \
+      --output image.tar.gz
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - image.tar.gz
+  artifacts:
+    name: docker-image
+    paths:
+      - image.tar.gz
+  tags:
+    - docker
+
+dev-www_publish:
+  stage: publish
+  image: ubleipzig/deployer:1.5.0
+  services:
+    - docker:18.09-dind
+  script: |
+    export version=`expr ${CI_COMMIT_TAG} ':' 'release/\(.\+\)'`
+    export major_version=`expr ${version} ':' '\([^.]\+\)'`
+    export minor_version=`expr ${version} ':' '[^.]\+\.\([^.-]\+\)'`
+    export patch_version=`expr ${version} ':' '[^.]\+\.[^.]\+[-.]\(.\+\)'`
+
+    deployer publish \
+      --input image.tar.gz \
+      --docker-config "${DOCKER_PRODUCTION_AUTH_CONFIG}" \
+      --name ${production_repo} \
+      --tag latest \
+      --tag ${version} \
+      --tag "${major_version}.${minor_version}" \
+      --tag "${major_version}"
+  dependencies:
+    - dev-dotdeb_build
+  tags:
+    - docker
+  only:
+    - /^release\/.*/
+
+github_mirror:
+  stage: mirror
+  image:
+    name: alpine/git:latest
+    entrypoint: [ "/bin/sh", "-c" ]
+  script: |
+    cd /tmp
+    git clone --mirror ${CI_REPOSITORY_URL} project
+    cd project
+    git remote add github https://$GITHUB_USER:$GITHUB_TOKEN@github.com/ubleipzig/dev-www.git
+    git push --mirror github
+  tags:
+    - docker
