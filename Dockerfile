@@ -24,7 +24,8 @@ RUN apk add --update --no-cache \
   rsync \
   supervisor \
   tzdata \
-  && (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true)
+  && (rm "/tmp/"* 2>/dev/null || true) && (rm -rf /var/cache/apk/* 2>/dev/null || true) \
+  && pear config-set http_proxy "$HTTP_PROXY"
 
 COPY ./docker/init /tmp/init
 COPY ./docker/build /tmp/build
