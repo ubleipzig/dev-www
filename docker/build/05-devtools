@@ -21,7 +21,7 @@ curl -L http://www.phing.info/get/phing-2.16.3.phar > /usr/local/bin/phing \
   && chmod a+x /usr/local/bin/phing \
 
 echo "Configuring xdebug"
-cat >/usr/local/etc/php/conf.d/php-ext-xdebug.ini <<EOF
+cat >>/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini <<EOF
 xdebug.mode = debug
 xdebug.start_with_request = trigger
 xdebug.client_host =
