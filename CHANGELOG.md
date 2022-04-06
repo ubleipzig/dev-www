@@ -1,17 +1,24 @@
 # Changelog
 
+## [7.4-4](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-3)
+
+Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-2...release%2F7.4-4)
+
+### Fixes
+* adds executions rights to composer file
+
 ## [7.4-3](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-3)
 
 Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-2...release%2F7.4-3)
 
-## Fixes
+### Fixes
 * fixes temporary Composer to version 2.2.7 due to conflicting issues w/ typo3/cms-composer-installers on higher version 
 
 ## [7.4-2](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-2)
 
 Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-1...release%2F7.4-2)
 
-## Fixes
+### Fixes
 * defines parameter _client_body_temp_path_ to _/tmp_ at run/03-nginx server configuration to avoid permissions issue on file uploads
 
 ## [7.4-1](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-1)

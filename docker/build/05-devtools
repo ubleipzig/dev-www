@@ -15,7 +15,8 @@ echo "Installing composer"
 curl https://getcomposer.org/download/2.2.7/composer.phar > /usr/local/bin/composer \
   && php -r "if (hash_file('SHA256', '/usr/local/bin/composer') === '10040ded663541990eef8ce1f6fa44cb3b4a47e145efb8e9e59907a15068033d') { echo 'Composer version verified'; } else { echo 'Composer version seems to corrupt. Aborted.'; unlink('/usr/local/bin/composer'); exit(1);} echo PHP_EOL;" \
   && curl https://raw.githubusercontent.com/eficode/wait-for/v2.1.2/wait-for > /usr/local/bin/wait-for \
-  && chmod +x /usr/local/bin/wait-for
+  && chmod +x /usr/local/bin/wait-for \
+  && chmod a+x /usr/local/bin/composer
 
 echo "Installing phing"
 curl -L http://www.phing.info/get/phing-2.16.3.phar > /usr/local/bin/phing \
