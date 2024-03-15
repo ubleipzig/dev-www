@@ -54,9 +54,10 @@ docker-php-ext-configure opcache --enable-opcache;
 docker-php-ext-configure xml;
 docker-php-ext-configure zip --with-zip;
 
-pecl install imagick xdebug
-docker-php-ext-enable --ini-name docker-php-ext-imagick.ini imagick
+pecl install imagick-3.4.4
+pecl install xdebug-3.1.6
 docker-php-ext-enable xdebug
+docker-php-ext-enable --ini-name docker-php-ext-imagick.ini imagick
 
 docker-php-ext-install -j ${NPROC} \
     curl \

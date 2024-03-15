@@ -1,8 +1,16 @@
 # Changelog
 
-## [7.4-4](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-3)
+## [7.4-5](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-5)
 
-Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-2...release%2F7.4-4)
+Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-4...release%2F7.4-5)
+
+### Fixes
+* due to compatibility issues of PHP 7.4 versions of xdebug will be fixed at v3.16 and imagick v3.4.4
+* base image updated to 7.4-fpm-alpine3.16
+
+## [7.4-4](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-4)
+
+Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-3...release%2F7.4-4)
 
 ### Fixes
 * adds executions rights to composer file
