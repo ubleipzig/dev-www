@@ -10,7 +10,7 @@ dev-www_build:
   stage: build
   image: ubleipzig/deployer:1.5.0
   services:
-    - docker:18.09-dind
+    - docker:dind
   script: |
     deployer build \
       --build-arg HTTP_PROXY="${HTTP_PROXY}" \
@@ -33,7 +33,7 @@ dev-www_publish:
   stage: publish
   image: ubleipzig/deployer:1.5.0
   services:
-    - docker:18.09-dind
+    - docker:dind
   script: |
     export version=`expr ${CI_COMMIT_TAG} ':' 'release/\(.\+\)'`
     export major_version=`expr ${version} ':' '\([^.]\+\)'`
