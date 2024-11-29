@@ -23,7 +23,7 @@ PHPIZE_DEPS="autoconf \
   imagemagick-dev \
   bzip2-dev \
   libzip-dev \
-  zlib-dev \
+  zlib-dev
 ";
 
 
@@ -41,7 +41,8 @@ apk add --no-cache --virtual .persistent-deps \
     libressl-dev \
     libxml2-dev \
     libzip \
-    oniguruma-dev
+    oniguruma-dev \
+    openldap-dev
 
 apk add --update --no-cache --virtual .build-deps $PHPIZE_DEPS;
 
@@ -49,6 +50,7 @@ docker-php-ext-configure curl;
 docker-php-ext-configure gd --with-freetype --with-jpeg;
 docker-php-ext-configure hash --with-mhash;
 docker-php-ext-configure intl --enable-intl;
+docker-php-ext-configure ldap;
 docker-php-ext-configure mbstring --enable-mbstring;
 docker-php-ext-configure opcache --enable-opcache;
 docker-php-ext-configure xml;
@@ -65,6 +67,7 @@ docker-php-ext-install -j ${NPROC} \
     gd \
     fileinfo \
     intl \
+    ldap \
     mbstring \
     mysqli \
     opcache \

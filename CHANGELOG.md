@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.4-6](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-6)
+
+Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-5...release%2F7.4-6)
+
+### Feature
+* adds LDAP support for PHP
+
 ## [7.4-5](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-5)
 
 Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-4...release%2F7.4-5)
