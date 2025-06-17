@@ -1,9 +1,9 @@
-FROM php:7.4-fpm-alpine3.16
+FROM php:8.2-fpm-alpine3.21
 
 LABEL org.opencontainers.image.authors="Frank Morgner <morgnerf@ub.uni-leipzig.de>" \
       org.opencontainers.image.title="dev-www" \
       org.opencontainers.image.description="Development environment for php based applications" \
-      org.opencontainers.image.version="7.4-0" \
+      org.opencontainers.image.version="8.2-0" \
       org.opencontainers.image.source=""
 
 ENV APP_HOME=/app \

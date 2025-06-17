@@ -14,16 +14,16 @@ PHPIZE_DEPS="autoconf \
   pcre-dev \
   make \
   git \
-  pkgconf \
-  re2c \
+ pkgconf \
+ re2c \
   curl-dev \
   freetype-dev \
-  libpng-dev  \
+ libpng-dev  \
   libjpeg-turbo-dev \
   imagemagick-dev \
   bzip2-dev \
-  libzip-dev \
-  zlib-dev \
+ libzip-dev \
+ zlib-dev \
 ";
 
 
@@ -38,7 +38,8 @@ apk add --no-cache --virtual .persistent-deps \
     icu-libs \
     imagemagick \
     imagemagick-libs \
-    libressl-dev \
+    linux-headers\
+    openssl-dev \
     libxml2-dev \
     libzip \
     oniguruma-dev
@@ -54,8 +55,8 @@ docker-php-ext-configure opcache --enable-opcache;
 docker-php-ext-configure xml;
 docker-php-ext-configure zip --with-zip;
 
-pecl install imagick-3.4.4
-pecl install xdebug-3.1.6
+pecl install imagick-3.8.0
+pecl install xdebug-3.4.3
 docker-php-ext-enable xdebug
 docker-php-ext-enable --ini-name docker-php-ext-imagick.ini imagick
 

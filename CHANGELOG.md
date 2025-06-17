@@ -1,5 +1,22 @@
 # Changelog
 
+## [8.2-0](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-5)
+
+* changes base image to _php:8.2-fpm-alpine3:22_ for www-dev environment
+* replaces _libressl-dev_ library with _openssl-dev_ 
+* updates _imagick_ library to v3.8.0
+* updates _xdebug_ to v3.4.3
+* updates _composer_ dependency tool to v2.8.9
+* updates _phing_ builder to v2.17.4
+
+
+Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-5...release%2F8.2-0)
+
+### Fixes
+* due to compatibility issues of PHP 7.4 versions of xdebug will be fixed at v3.16 and imagick v3.4.4
+* base image updated to 7.4-fpm-alpine3.16
+
+
 ## [7.4-5](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/7.4-5)
 
 Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F7.4-4...release%2F7.4-5)

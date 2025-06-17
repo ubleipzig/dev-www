@@ -12,15 +12,15 @@ echo "Installing composer"
   #&& php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('/tmp/composer-setup.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1);} echo PHP_EOL;" \
   #&& php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
   #&& rm composer-setup.php \
-curl https://getcomposer.org/download/2.2.7/composer.phar > /usr/local/bin/composer \
-  && php -r "if (hash_file('SHA256', '/usr/local/bin/composer') === '10040ded663541990eef8ce1f6fa44cb3b4a47e145efb8e9e59907a15068033d') { echo 'Composer version verified'; } else { echo 'Composer version seems to corrupt. Aborted.'; unlink('/usr/local/bin/composer'); exit(1);} echo PHP_EOL;" \
+curl https://getcomposer.org/download/2.8.9/composer.phar > /usr/local/bin/composer \
+  && php -r "if (hash_file('SHA256', '/usr/local/bin/composer') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Composer version verified'; } else { echo 'Composer version seems to corrupt. Aborted.'; unlink('/usr/local/bin/composer'); exit(1);} echo PHP_EOL;" \
   && curl https://raw.githubusercontent.com/eficode/wait-for/v2.1.2/wait-for > /usr/local/bin/wait-for \
   && chmod +x /usr/local/bin/wait-for \
   && chmod a+x /usr/local/bin/composer
 
 echo "Installing phing"
-curl -L http://www.phing.info/get/phing-2.16.3.phar > /usr/local/bin/phing \
-  && php -r "if (hash_file('SHA512', '/usr/local/bin/phing') === '82fc5043b566b4208fa1e51f105c278e46c66ff807a136ad490f4cbd7ffcb9573374b26a7da21d6a500073bca7301bd1703056f5e2eb1c74f54b100970c8fa9a') { echo 'Phing verified'; } else { echo 'Phing corrupt'; unlink('/usr/local/bin/phing'); exit(1);} echo PHP_EOL;" \
+curl -L http://www.phing.info/get/phing-2.17.4.phar > /usr/local/bin/phing \
+  && php -r "if (hash_file('SHA512', '/usr/local/bin/phing') === 'db74e90a8a61c6108c16300edbebcfacd8452abec565c4e997ad3e0c2c41814e3717f00e4a714686c299bf0b36f8f6ab23aae86b1cd4b609218a3ae2a3d1de02') { echo 'Phing verified'; } else { echo 'Phing corrupt'; unlink('/usr/local/bin/phing'); exit(1);} echo PHP_EOL;" \
   && chmod a+x /usr/local/bin/phing \
 
 echo "Configuring xdebug"
