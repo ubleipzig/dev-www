@@ -27,76 +27,86 @@ server {
     location = /favicon.ico { log_not_found off; access_log off; }
     location = /robot.txt { log_not_found off; access_log off; }
 
-    # Deny all attempts to access hidden files such as .htaccess, .htpasswd, .DS_Store (Mac).
-    location ~ /\. {
-       deny all;
-       access_log off;
-       log_not_found off;
+    location ~ \.js\.gzip$ {
+        add_header Content-Encoding gzip;
+        gzip off;
+        types { text/javascript gzip; }
+    }
+    location ~ \.css\.gzip$ {
+        add_header Content-Encoding gzip;
+        gzip off;
+        types { text/css gzip; }
     }
 
-    location ~ \.php$ {
-      try_files \$uri =404;
-      include /etc/nginx/fastcgi_params;
-      fastcgi_pass 127.0.0.1:9000;
-      fastcgi_index index.php;
-      fastcgi_split_path_info ^(.+\.php)(/.+)$;
-      fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-      fastcgi_param HTTPS 'off';
-      fastcgi_intercept_errors on;
-      fastcgi_buffer_size 128k;
-      fastcgi_buffers 256 16k;
-      fastcgi_busy_buffers_size 256k;
-      fastcgi_temp_file_write_size 256k;
-      fastcgi_read_timeout 1200;
-   }
-
-   location ~ /\.(js|css)$ {
-      expires 604800s;
-   }
-
-   if (!-e \$request_filename){
-     rewrite ^/(.+)\.(\d+)\.(php|js|css|png|jpg|gif|gzip)$ /\$1.\$3 last;
-   }
-
-  location ~* ^/fileadmin/(.*/)?_recycler_/ {
-    deny all;
-  }
-
-  location ~* ^/fileadmin/templates/.*(\.txt|\.ts)$ {
-    deny all;
-  }
-
-  location ~* ^/typo3conf/ext/[^/]+/Resources/Private/ {
-    deny all;
-  }
-
-  location ~* ^/(typo3/|fileadmin/|typo3conf/|typo3temp/|uploads/|favicon\.ico) {
-  }
-
-  location / {
-    if (\$query_string ~ ".+") {
-      return 405;
+    if (!-e $request_filename) {
+        rewrite ^/(.+)\.(\d+)\.(php|js|css|png|jpg|gif|gzip)$ /$1.$3 last;
     }
-    if (\$http_cookie ~ 'nc_staticfilecache|be_typo_user|fe_typo_user' ) {
-      return 405;
-    } # pass POST requests to PHP
-    if (\$request_method !~ ^(GET|HEAD)$ ) {
-      return 405;
-    }
-    if (\$http_pragma = 'no-cache') {
-      return 405;
-    }
-    if (\$http_cache_control = 'no-cache') {
-      return 405;
-    }
-    error_page 405 = @nocache;
-    try_files /typo3temp/tx_ncstaticfilecache/\$host\${request_uri}index.html @nocache;
-  }
 
-  location @nocache {
-    try_files \$uri \$uri/ /index.php\$is_args\$args;
-  }
+    location ~* composer\.(?:json|lock) {
+        deny all;
+    }
 
-  include default.d/*.conf;
+    location ~* flexform[^.]*\.xml {
+        deny all;
+    }
+
+    location ~* locallang[^.]*\.(?:xml|xlf)$ {
+        deny all;
+    }
+
+    location ~* ext_conf_template\.txt|ext_typoscript_constants\.txt|ext_typoscript_setup\.txt {
+        deny all;
+    }
+
+    location ~* /.*\.(?:bak|co?nf|cfg|ya?ml|ts|typoscript|tsconfig|dist|fla|in[ci]|log|sh|sql|sqlite)$ {
+        deny all;
+    }
+
+    location ~ _(?:recycler|temp)_/ {
+        deny all;
+    }
+
+    location ~ fileadmin/(?:templates)/.*\.(?:txt|ts|typoscript)$ {
+        deny all;
+    }
+
+    location ~ ^(?:vendor|typo3_src|typo3temp/var) {
+        deny all;
+    }
+
+    location ~ (?:typo3conf/ext|typo3/sysext|typo3/ext)/[^/]+/(?:Configuration|Resources/Private|Tests?|Documentation|docs?)/ {
+        deny all;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location = /typo3 {
+        rewrite ^ /typo3/;
+    }
+
+    location /typo3/ {
+        absolute_redirect off;
+        try_files $uri /typo3/index.php$is_args$args;
+    }
+
+    location ~ [^/]\.php(/|$) {
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        if (!-f $document_root$fastcgi_script_name) {
+            return 404;
+        }
+        fastcgi_buffer_size 32k;
+        fastcgi_buffers 8 16k;
+        fastcgi_connect_timeout 240s;
+        fastcgi_read_timeout 240s;
+        fastcgi_send_timeout 240s;
+
+        fastcgi_pass         unix:/var/run/php-fpm/www.sock;
+        fastcgi_index        index.php;
+        include              fastcgi.conf;
+    }
+
+    include default.d/*.conf;
 }
 EOF

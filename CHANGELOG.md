@@ -1,5 +1,13 @@
 # Changelog
 
+## [8.2-2](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/8.2-2)
+
+### Fixes
+* adjusts nginx host file configurations
+
+Compare [Full Changelog](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/compare/release%2F8.2-1...release%2F8.2-2)
+
+
 ## [8.2-1](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/8.2-1)
 
 ### Fixes
