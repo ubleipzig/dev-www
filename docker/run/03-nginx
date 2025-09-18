@@ -19,11 +19,6 @@ server {
 
     access_log  /dev/stdout  main;
 
-    #error_page   500 502 503 504  /50x.html;
-    #location = /50x.html {
-    #    root   /usr/share/nginx/html;
-    #}
-
     location = /favicon.ico { log_not_found off; access_log off; }
     location = /robot.txt { log_not_found off; access_log off; }
 
@@ -38,8 +33,8 @@ server {
         types { text/css gzip; }
     }
 
-    if (!-e $request_filename) {
-        rewrite ^/(.+)\.(\d+)\.(php|js|css|png|jpg|gif|gzip)$ /$1.$3 last;
+    if (!-e \$request_filename) {
+        rewrite ^/(.+)\.(\d+)\.(php|js|css|png|jpg|gif|gzip)$ /\$1.\$3 last;
     }
 
     location ~* composer\.(?:json|lock) {
@@ -79,7 +74,7 @@ server {
     }
 
     location / {
-        try_files $uri $uri/ /index.php$is_args$args;
+        try_files \$uri \$uri/ /index.php\$is_args\$args;
     }
 
     location = /typo3 {
@@ -88,23 +83,27 @@ server {
 
     location /typo3/ {
         absolute_redirect off;
-        try_files $uri /typo3/index.php$is_args$args;
+        try_files \$uri /typo3/index.php\$is_args\$args;
     }
 
     location ~ [^/]\.php(/|$) {
         fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-        if (!-f $document_root$fastcgi_script_name) {
+        if (!-f \$document_root\$fastcgi_script_name) {
             return 404;
         }
+	fastcgi_param HTTPS 'off';
+        fastcgi_intercept_errors on;
         fastcgi_buffer_size 32k;
-        fastcgi_buffers 8 16k;
+        fastcgi_buffers 16 16k;
+        fastcgi_busy_buffers_size 128k;
+        fastcgi_temp_file_write_size 128k;
         fastcgi_connect_timeout 240s;
         fastcgi_read_timeout 240s;
         fastcgi_send_timeout 240s;
 
-        fastcgi_pass         unix:/var/run/php-fpm/www.sock;
-        fastcgi_index        index.php;
-        include              fastcgi.conf;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        include fastcgi.conf;
     }
 
     include default.d/*.conf;
