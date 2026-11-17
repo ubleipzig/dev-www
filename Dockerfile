@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-alpine3.21
+FROM php:8.2-fpm-alpine3.24
 
 LABEL org.opencontainers.image.authors="Frank Morgner <morgnerf@ub.uni-leipzig.de>" \
       org.opencontainers.image.title="dev-www" \
