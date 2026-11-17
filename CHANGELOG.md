@@ -1,5 +1,9 @@
 # Changelog
 
+## [8.4-0](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/8.4-0)
+
+* changes base image to _php:8.4-fpm-alpine3:24_ for www-dev environment
+
 ## [8.2-4](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/8.2-4)
 
 * updates the base image to _php:8.2-fpm-alpine3:24_
