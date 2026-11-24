@@ -83,7 +83,7 @@ server {
 
     location /typo3/ {
         absolute_redirect off;
-        try_files \$uri /typo3/index.php\$is_args\$args;
+        try_files \$uri /index.php\$is_args\$args;
     }
 
     location ~ [^/]\.php(/|$) {

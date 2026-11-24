@@ -4,8 +4,6 @@
 
 This image is for all php developers who want a basic development environment setup.
 
-It is out of the box usable on linux hosts with a docker engine version >= 1.3
-
 Includes your app path at a nginx and _php-fpm_ basic setup and provides any special developing features as:
 
 * xdebug
@@ -63,17 +61,17 @@ _The values given here are the default values._
 
 ## Release management
 
-Releases are orientated on PHP version of based Alpine PHP-FPM image as for example _php:7.4-fpm-alpine_. 
+Releases are orientated on PHP version of based Alpine PHP-FPM image as for example _php:8.4-fpm-alpine_. 
 
 At https://git.sc.uni-leipzig.de exists a Gitlab CI-pipeline building an image and publishing it to a registry.
 
 A release tag is necessary to publish an image to [ubleipzig/dev-www][4] Release tags have to be the schema of _release/*_ and to start with prefixed terminus _release_.
 
-For example if you would push a new tag named release/7.4-0 following set of new images will be created:
+For example if you would push a new tag named release/8.4-0 following set of new images will be created:
 
-- 7.4-0
-- 7.4
-- 7
+- 8.4-0
+- 8.4
+- 8
 - latest
 
 

@@ -1,8 +1,15 @@
 # Changelog
 
+## [8.4-1](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/8.4-0)
+
+* important! changes routing for typo3 v13 backend _/typo3_ at _run/03-nginx_ host configuration
+* use it for running typo3 v13
+
+
 ## [8.4-0](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/8.4-0)
 
 * updates PHP version to 8.4 with base image to _php:8.4-fpm-alpine3:24_
+* use it for running typo3 v12
 
 ## [8.2-4](https://git.sc.uni-leipzig.de/ubl/bdd_dev/docker/dev-www/-/commits/release/8.2-4)
 
